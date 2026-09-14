@@ -1,0 +1,12 @@
+{
+  "created_london": "2026-09-14 20:20:54 BST",
+  "status": "PRE-LAUNCH TESTING ONLY",
+  "test_mode": true,
+  "product": "BTC-GBP",
+  "poll_seconds": 15,
+  "lookback_seconds": 300,
+  "trigger_percent": 0.5,
+  "cooldown_seconds": 300,
+  "request_timeout_seconds": 10,
+  "notes": "Temporary development thresholds. These are not frozen live-strategy settings and may be changed during pre-launch testing."
+}
