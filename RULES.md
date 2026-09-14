@@ -1,134 +1,97 @@
 # AI Trading Experiment — Rules
 
 **Rules document created:** 2026-09-14 19:50 BST  
-**Status:** PRE-LAUNCH / NOT YET FROZEN  
+**Latest pre-launch approval:** 2026-09-14 19:55 BST  
+**Status:** PRE-LAUNCH / APPROVED RULESET / NOT YET FROZEN  
 **Official 30-day clock:** NOT STARTED
 
-This document defines the rules currently agreed for the AI Trading Experiment. Until the experiment is officially launched, rules may be refined. Once launched, the frozen rules must not be silently altered.
+This document defines the approved rules for the AI Trading Experiment. The rules will be frozen immediately before the official experiment begins. After launch, historical rules cannot be silently changed.
 
-## 1. Objective
+## 1. Objective and Capital
 
-The experiment begins with exactly **£100.00 of simulated capital**.
+The experiment begins with exactly **£100.00 simulated capital**. The objective is to maximise the legitimate marked-to-market GBP value of the portfolio over exactly **30 calendar days**. There is no target ceiling or early-success threshold. Reaching £200, £500, or any other amount does not end the experiment.
 
-The objective is to **maximise the legitimate marked-to-market value of the portfolio over exactly 30 calendar days**.
+No additional external capital may enter the portfolio after launch. Deposits, gifts, promotional credits, gambling winnings or other outside additions are prohibited.
 
-There is no target ceiling and no early success threshold. £200 has no special significance. Reaching £200, £500, or any other amount does not end the experiment. Trading may continue until the exact 30-day deadline.
+The experiment cannot be restarted because of poor performance and cannot be extended because an open position is losing at the deadline.
 
-The final result is the legitimate portfolio value at the experiment deadline after applicable costs and currency conversion.
+## 2. Duration and Final Result
 
-## 2. Experiment Duration
+The 30-day clock begins only after the infrastructure is tested, this ruleset is frozen, the £100 opening balance is recorded and an official start timestamp is created.
 
-The experiment lasts exactly 30 calendar days from an official timestamp that will be recorded when the infrastructure is ready and the rules are frozen.
+At the exact deadline, the portfolio is valued using contemporaneous realistically obtainable market prices, applicable exit costs and contemporaneous FX conversion into GBP. The complete portfolio, trade history and audit logs are preserved.
 
-The clock must not begin during development or testing.
+Results will include at least final GBP value, GBP profit/loss, percentage return and maximum drawdown.
 
-At the deadline, the portfolio is valued using contemporaneous obtainable market prices and applicable exit costs. The experiment cannot be extended because an open position is temporarily losing money.
+## 3. London Time Standard
 
-## 3. AI Control
+**Europe/London is the authoritative timezone for the entire experiment.**
 
-All discretionary trading decisions are made by the AI system.
+Human-readable timestamps must use London local time and automatically follow UK daylight-saving changes, displaying **GMT or BST as applicable on that date**. The system must use the IANA timezone `Europe/London` rather than permanently assuming either GMT or BST.
 
-The human user's role is infrastructure only. The user may provide access, create or run programs, repair technical problems, maintain hardware/software, and provide other operational assistance that does not communicate a trading opinion.
+Standard human-readable format:
 
-The user must not decide what to buy, sell, hold, avoid, investigate, or allocate during the live experiment.
+```text
+YYYY-MM-DD HH:MM:SS GMT/BST
+```
 
-The AI may choose BUY, SELL, HOLD / NO TRADE, reduce a position, increase a position, hold cash, or otherwise manage the simulated portfolio within these rules.
+Machine-readable records should additionally retain an unambiguous timezone-aware timestamp where technically possible. All system clocks should be synchronised to a reliable time source.
 
-The AI is never required to trade simply because an event was detected.
+## 4. AI Control
 
-## 4. No Human Trading Signal
+All discretionary trading decisions are made by the AI system. The human user's role is infrastructure only: providing access, running programs, repairing technical problems and maintaining the system without communicating a trading opinion.
 
-The human must not selectively direct the AI toward an asset because the human has noticed a potential opportunity.
+The user must not decide what to buy, sell, hold, avoid, investigate or allocate during the live experiment. The AI may independently BUY, SELL, HOLD / NO TRADE, increase/reduce positions or hold cash. A trigger never forces a trade.
 
-For example, during the live experiment the user should not say "check Tesla now" after personally seeing Tesla move sharply.
+## 5. No Hidden Human Trading Signal
 
-Human-triggered checks must be systematic, infrastructure-related, or clearly logged as an intervention. Any intervention capable of influencing trading decisions must remain visible in the audit trail.
+The human must not selectively direct the AI toward an asset because the human has noticed an opportunity. Systematic checks and infrastructure assistance are allowed. Any human intervention capable of affecting trading decisions must be visibly logged.
 
-## 5. Markets Allowed
+## 6. Allowed Markets and Methods
 
-The AI may consider legitimate publicly traded financial markets for which sufficiently reliable market information and realistic simulated execution can be obtained.
+Where reliable data and realistic simulated execution are available, the AI may use legitimate publicly traded markets including equities, ETFs, cryptocurrency, FX/currency trading and legitimate commodity exposure that does not violate the derivative/leverage rules.
 
-This may include, where technically and realistically supported:
+Permitted analytical/trading methods include public news/event analysis, momentum, mean reversion, technical analysis, fundamental analysis, sentiment analysis, public trader/investor disclosures, cross-market signals, relative-value analysis, earnings analysis, arbitrage detection where genuinely executable, dynamic position sizing, cash management, fixed stop-losses and trailing stops.
 
-- equities
-- ETFs
-- cryptocurrency
-- foreign exchange / currency trading
-- commodities or other legitimate financial instruments
+Crypto may be monitored/traded when its market is open, including 24/7 markets. FX may be monitored/traded during realistically available FX trading sessions.
 
-Fractional positions are allowed where a realistic broker or exchange would permit them.
+The monitoring system may dynamically identify new instruments rather than being restricted to a fixed asset list, provided every actually monitored market is logged.
 
-Multiple concurrent positions are allowed.
+## 7. Capital Constraint: Trade Only What We Own
 
-The AI may allocate up to 100% of available portfolio capital to a single eligible position if it independently decides that doing so best serves the objective. It may instead diversify or retain any amount as cash.
+The AI may trade only with capital or assets currently owned by the simulated portfolio.
 
-## 6. Currency Trading and Portfolio Base Currency
+It may never borrow money, borrow securities/assets, create a negative cash balance or obtain exposure exceeding available portfolio resources.
 
-Currency / FX trading is explicitly allowed.
+Therefore **margin, leverage, conventional short selling, borrowed shares, CFDs, options, futures, leveraged tokens and similar leveraged/borrowed instruments are prohibited**.
 
-The portfolio's reporting base currency is **GBP**.
+An attempted order exceeding available resources must be rejected mechanically and the rejection timestamped and logged.
 
-Positions denominated in another currency must be valued in GBP using a contemporaneous exchange rate when calculating portfolio value.
+Fractional positions are allowed only where the assumed realistic venue supports them. Multiple concurrent positions are allowed. Up to 100% of available portfolio capital may be allocated to one eligible position if the AI independently judges that appropriate.
 
-FX spreads, fees, minimum order sizes and other realistic execution constraints must be represented where applicable.
+## 8. Gambling Prohibited
 
-## 7. Gambling Prohibited
+No gambling may be used to create portfolio wealth. This includes casinos, sportsbooks, lotteries, gambling games, prediction-market wagering and similar mechanisms whose primary purpose is wagering rather than legitimate financial-market investment/trading. Gambling winnings cannot enter the portfolio.
 
-No form of gambling may be used to create portfolio wealth.
-
-This prohibition includes casinos, sportsbooks, lotteries, gambling games, and other systems whose primary purpose is wagering rather than legitimate financial-market investment or trading.
-
-Gambling winnings cannot be introduced into the portfolio.
-
-Legitimate financial-market risk is not automatically considered gambling. The AI may take investment and trading risk within eligible financial markets, subject to all other experiment rules.
-
-## 8. Initially Excluded High-Leverage Instruments
-
-Unless explicitly changed before the rules are frozen, the initial experiment excludes margin borrowing, CFDs, options, futures, leveraged tokens, and other instruments that create leverage beyond the available simulated capital.
-
-A future experiment version may test leverage separately.
+Legitimate financial-market risk is allowed, but a financial instrument cannot be used merely as a disguised lottery. A highly concentrated or speculative position requires a documented evidence-based market thesis rather than an all-or-nothing hope of an extreme payout.
 
 ## 9. Public Information Only
 
-The AI may use legitimate publicly available information, including:
+The AI may use legitimate publicly available market prices/data, news, company announcements/filings, technical analysis, fundamentals, economic data, analyst commentary, public sentiment and publicly disclosed trades/positions.
 
-- market prices and market data
-- public news
-- company announcements and filings
-- technical analysis
-- fundamental analysis
-- economic information
-- public analyst commentary
-- public sentiment information
-- publicly disclosed trades or positions of other traders/investors
+Insider information, unlawfully obtained private information and other non-public privileged information are prohibited.
 
-Insider information, unlawfully obtained private information, or other non-public privileged information is prohibited.
+Information may influence a decision only if it was genuinely available before the AI decision timestamp.
 
 ## 10. No Hindsight
 
-The experiment is a forward test.
+This is a forward test. No trade may be created retrospectively because subsequent movement showed it would have been profitable. The AI cannot claim a trade at an earlier time than it actually received and processed the relevant information. Missed opportunities remain missed.
 
-No trade may be created retrospectively because subsequent market movement revealed that it would have been profitable.
+## 11. Mandatory Event Timestamps
 
-Information may influence a decision only if it was genuinely available to the AI before that decision.
+Every meaningful event, addition, change, test, AI task, decision, execution, error, correction, configuration change, outage and milestone receives a full Europe/London timestamp.
 
-Public news, posts, filings, disclosures, or other signals must have been available before the AI decision timestamp.
-
-A missed opportunity remains missed.
-
-## 11. Mandatory Full Timestamps
-
-Every meaningful experiment addition, event, change, test, AI action, decision, simulated execution, error, correction, configuration change, and milestone must include the full date and time.
-
-Standard format:
-
-```text
-YYYY-MM-DD HH:MM:SS TZ
-```
-
-Where technically possible, machine-readable logs should additionally retain an unambiguous timezone-aware timestamp.
-
-Trading events should record at least:
+Trading events record at least:
 
 ```text
 EVENT OCCURRED
@@ -138,235 +101,172 @@ AI DECISION
 SIMULATED EXECUTION
 ```
 
-The date must be included on every timestamp so events spanning midnight remain unambiguous.
+The earliest valid trade is after the AI actually receives/processes the event.
 
 ## 12. Actions Are Irreversible
 
-Once a genuine experiment action has been executed and timestamped, it cannot be undone, deleted, rewritten, or retroactively replaced.
+Once a genuine experiment action is executed and timestamped, it cannot be undone, deleted, rewritten or retroactively replaced. Losing BUYs, poor SELLs, missed HOLDs and bad allocations remain part of the experiment.
 
-Examples:
+There is no undo button for genuine decisions.
 
-- a losing BUY remains a losing BUY
-- a SELL immediately before a rally remains recorded
-- a HOLD that misses an opportunity remains recorded
-- a poor allocation cannot be rewritten after seeing what happened next
+## 13. Corrections Are Append-Only
 
-The experiment must preserve bad decisions as faithfully as successful ones.
+A genuine factual, software or logging error may be corrected, but the original record remains visible. A new timestamped `CORRECTION` record must state what was wrong, why, the corrected value and when the error was discovered.
 
-## 13. Corrections Do Not Rewrite History
+Corrections cannot reverse genuine trading decisions or improve historical performance.
 
-A genuine factual or logging error may be corrected, but the original record must remain visible.
+## 14. Immutable Decision and Rationale Records
 
-A correction must be appended as a new timestamped **CORRECTION** entry explaining:
+BUY, SELL, HOLD / NO TRADE, allocation and other discretionary decisions are logged and cannot be edited after subsequent market movement is known.
 
-- what was wrong
-- why it was wrong
-- the corrected value
-- when the error was discovered
+Every discretionary executed trade must have a short linked rationale created before or at the decision. It should record at least:
 
-Corrections cannot be used to reverse genuine trading decisions or improve historical performance.
+- unique trade ID
+- Europe/London decision timestamp
+- asset and action
+- position size
+- concise evidence-based reason
+- relevant event/task references
+- AI agent/model
+- initial risk/exit plan
+- re-entry status and previous trade ID where applicable
 
-## 14. Immutable Decision Log
+SELL decisions receive a short rationale as well. Automatic stop executions link to the rationale that established the stop. Rationale records are immutable after execution; later observations/corrections are appended separately and must never introduce retrospective reasoning into the original rationale.
 
-BUY, SELL, HOLD / NO TRADE, allocation and other discretionary decisions must be written to the decision log.
+## 15. Stop-Loss and Trailing-Stop Rules
 
-Logged decisions must not be deleted or edited to make the AI appear more successful.
+Fixed and trailing stops are allowed. Protective stops should normally be considered when a position is opened or materially increased, but a stop is not mandatory where the AI has a documented reason that it is inappropriate.
 
-Any subsequent change of mind is a new decision with a new timestamp.
+A new protective stop cannot be invented or tightened merely to retrospectively protect an already failing trade. The AI may still make a fresh discretionary SELL decision on a losing position.
 
-## 15. Realistic Execution
+A stop may move in the position's favour according to its legitimate trailing/protection logic. Moving a stop further into loss requires a new documented evidence-based justification and cannot be done merely to avoid accepting a losing trade.
 
-A simulated trade must use a realistically obtainable price after the AI decision, not the most favourable nearby price.
+A stop's trigger price is not a guaranteed execution price. The simulator uses a realistically obtainable price after triggering, including gaps/slippage where applicable.
 
-The system must not award the AI a price that occurred before it made the decision.
+## 16. Re-entry After a Loss or Stop
 
-Applicable spreads, commissions, transaction fees, currency-conversion costs and other realistic trading costs should be modelled.
+An asset may be bought again after a loss or stop only following fresh AI analysis with a specific evidence-based reason. Re-entry cannot be motivated solely by recovering the previous loss, an unsupported hunch or the fact that the asset is now cheaper.
 
-Where appropriate, a realistic slippage assumption should be included.
+There is no arbitrary cooldown period. Genuine new information or a genuinely new setup can justify rapid re-entry.
 
-## 16. Price Sources
+Every reopened trade is a new trade with a new ID, new rationale, new risk assessment and new stop decision where appropriate. There must be no automatic `stop -> rebuy -> stop -> rebuy` loop.
 
-Each watched market or instrument should have a defined primary market-data source.
+## 17. Realistic Execution
 
-Where practical, a defined fallback source should exist.
+Simulated trades use realistically obtainable prices after the AI decision, never the most favourable nearby chart price. Applicable spreads, commissions, transaction fees, FX fees and realistic slippage are modelled where relevant.
 
-If the primary source fails and a fallback is used, the source change must be timestamped and logged.
+Broker/exchange minimum order sizes, fractional precision and material restrictions must be respected. The simulator cannot assume unrealistic fills in effectively illiquid markets.
 
-The system must not switch sources retrospectively merely because another source provides a more favourable price.
+Every simulated order receives a unique order ID. Duplicate messages must not execute the same order twice.
 
-## 17. Stale Data
+## 18. Price Sources and Stale Data
 
-Trades must not knowingly execute against stale or obviously invalid market data.
+Each watched instrument has a defined primary market-data source and, where practical, a fallback. Source changes are timestamped. Sources cannot be switched retrospectively to obtain a favourable price.
 
-A maximum acceptable quote age will be defined for each relevant market/data source before launch where necessary.
+Maximum acceptable quote age will be defined by market/data source before launch where needed. Stale, invalid or unreliable data cannot be used for execution. If trustworthy market data is unavailable, the trading system **fails closed** and does not invent prices or trades.
 
-If the available quote is too stale for realistic execution, the trade must wait for valid data or fail visibly rather than inventing an execution price.
+## 19. Liquidity, Market Hours and Tradability
 
-## 18. Liquidity and Tradability
-
-The simulator must not assume unrealistic fills in effectively illiquid markets.
-
-Every simulated trade should represent an order that could reasonably have been executed at approximately the recorded size and time.
-
-Broker/exchange minimum order values, fractional precision and other material trading restrictions must be respected where applicable.
-
-## 19. Market Hours
-
-Instruments with defined trading hours may only be executed when a realistic execution venue would permit the trade.
-
-Pre-market or after-hours trading may only be simulated when the selected realistic venue supports it and suitable contemporaneous pricing is available.
+Orders must represent trades that could reasonably have executed at approximately the recorded size/time. Market hours and realistic venue restrictions are respected. Extended-hours trading is allowed only when the assumed venue supports it and suitable contemporaneous pricing is available.
 
 ## 20. Corporate and Market Actions
 
-Material events such as stock splits, dividends, mergers, delistings, trading halts, crypto forks, airdrops or similar events must be handled explicitly and timestamped where they affect the simulated portfolio.
+Dividends, splits, mergers, delistings, trading halts, crypto forks, airdrops and similar material events are explicitly accounted for where they affect the portfolio. They cannot accidentally manufacture or destroy simulated wealth through incorrect accounting.
 
-They must not accidentally create or destroy portfolio value through incorrect accounting.
+External benefits such as promotional credits or referral bonuses do not count. Dividends, interest, staking income or comparable returns count only when they would genuinely have accrued to the simulated position under the assumed venue/product during the experiment.
 
-## 21. Portfolio Valuation
+## 21. GBP Portfolio Valuation
 
-Portfolio value is calculated from:
+GBP is the portfolio reporting currency. Portfolio value includes cash, current marked-to-market open positions, realised/unrealised P&L, fees/costs and contemporaneous FX conversion.
 
-- available cash
-- current marked-to-market value of open positions
-- unrealised profit/loss
-- realised profit/loss where relevant
-- applicable fees and trading costs
-- applicable FX conversion into GBP
+Foreign-currency positions use contemporaneous FX rates. Entry price cannot substitute for current market value when reporting performance.
 
-Entry price must not be substituted for current market value when reporting portfolio performance.
+Portfolio accounting must reject impossible states such as spending more cash than is available.
 
 ## 22. Profit Protection Is an AI Decision
 
-There is no rule requiring the AI to continue risking all accumulated profit.
+There is no automatic requirement to risk or protect a particular amount after making profit. If £100 becomes £200, the AI may retain some as cash or continue deploying it. The decision must be made prospectively and logged before subsequent movement is known.
 
-For example, if £100 grows to £200, the AI may independently decide to retain some capital as cash and continue trading the remainder, or continue deploying the entire portfolio.
+## 23. Loss Does Not Automatically End the Experiment
 
-Likewise, there is no automatic requirement to protect profit after reaching any particular amount.
+A large loss does not automatically terminate the run. If a legitimate tradable balance remains, the AI may continue until the deadline. The experiment ends early only if continuation becomes genuinely impossible or a documented technical/integrity/rule-compliance issue requires termination.
 
-Such decisions are part of portfolio management and must be made and logged before subsequent market movement is known.
+## 24. AI Agent Identification and Specialist Agents
 
-## 23. Portfolio Loss Does Not Automatically End the Experiment
+Multiple specialist AI agents may be used for areas such as news, technical analysis, macro/FX, crypto and risk. Every AI task records the responsible model/agent, role, timestamp, trigger, market, result and status where available.
 
-A large loss does not automatically terminate the experiment.
+Specialist agents provide analysis. One predetermined decision process/agent has final discretionary portfolio authority. Agent opinions cannot be cherry-picked retrospectively according to which would have been profitable.
 
-If a small legitimate balance remains and can realistically still be traded, the AI may continue until the 30-day deadline.
+## 25. Opportunity Scoring and Monitoring
 
-The experiment ends early only if continuing becomes genuinely impossible or the run is terminated for a documented technical, integrity, safety, or rule-compliance reason.
+Mechanical watchers may score/prioritise potential opportunities using objective inputs such as price movement, volume, volatility, news significance and sentiment. Such scores decide what deserves AI review, not whether a trade is executed.
 
-## 24. AI Agent Identification
+A separate risk-monitoring process may watch existing positions and trigger AI reassessment when material risk conditions change.
 
-Every AI task used by the experiment must record the AI agent/model involved and the task it performed.
-
-Where available, logs should include:
-
-- task ID
-- timestamp
-- agent role
-- exact model or system identity
-- market/instrument involved
-- trigger/reason for invocation
-- action/result
-- status
-
-The repository's agent task log is the audit record for this information.
-
-## 25. Multiple-Agent Conflicts
-
-If multiple AI agents are used, their roles must be defined in advance.
-
-One designated decision process/agent must have final authority for discretionary portfolio actions.
-
-The system must not ask several agents for opinions and then retrospectively select whichever recommendation would have been most profitable.
-
-Disagreement between agents should remain visible where it materially affects the experiment.
+Duplicate triggers should be suppressed unless there is meaningful new information, material market change or an appropriate elapsed interval.
 
 ## 26. Prompt and Configuration Integrity
 
-Once the live experiment begins, prompts, strategy configuration, watcher thresholds, agent responsibilities and other decision-relevant configuration must not be silently altered.
+After launch, prompts, thresholds, strategy configuration, agent roles and decision-relevant logic cannot be silently altered. Necessary changes must be timestamped, documented and justified. A material change may require the run to be declared compromised or moved to a new experiment version.
 
-Necessary changes must be timestamped, documented and justified.
+## 27. Market Registry
 
-A change substantial enough to alter the nature of the experiment may require the current run to be declared compromised or a new experiment version to be created.
+Every market/instrument actually monitored is entered into the market-watch records with relevant source, status and timestamps. Instruments removed from monitoring remain historically visible.
 
-## 27. Every Watched Market Must Be Recorded
+## 28. System Outages
 
-Every market/instrument monitored by the experiment must be entered in the repository's market-watch records.
+Downtime or material failure involving the PC, watcher, internet, AI system, market-data provider, execution simulator, repository or other critical infrastructure is timestamped and logged.
 
-The record should include when monitoring began, the data source, market/instrument identity, monitoring status, and relevant AI agents/tasks.
+No hypothetical trades may later be reconstructed for periods when the AI/system was unavailable. Trading resumes only from information genuinely available after recovery.
 
-Markets removed from monitoring must remain in the historical record rather than being deleted.
+## 29. Audit Trail and Git Integrity
 
-## 28. Duplicate Event Protection
+Successful trades, losing trades, HOLDs, missed opportunities, system failures, rejected orders, corrections, agent disagreements and other material events remain visible. Results cannot be cherry-picked.
 
-The monitoring system should prevent the same unchanged event from repeatedly generating identical AI reviews without justification.
+GitHub commit history forms part of the audit trail and must not be rewritten to conceal mistakes.
 
-A repeated review should require a meaningful new event, new information, material market change, or an appropriate elapsed interval.
+## 30. Experiment Integrity / Invalid Run
 
-## 29. System Outages
+Severe corruption/missing decision records, materially unreliable timestamps, future-information contamination, unrecoverable accounting errors or comparable violations must be disclosed rather than hidden. The run may be labelled compromised or invalid where necessary, with the reason and timestamp preserved.
 
-Downtime or material failure involving the PC, watcher, internet connection, ChatGPT/AI system, data provider, execution simulator, repository, or other critical infrastructure must be timestamped and logged.
+## 31. Benchmarks
 
-The AI cannot later invent trades it claims it would have made while the system was unavailable.
+Passive benchmarks begin at the same official timestamp with equivalent £100 starting values. At minimum these will include a broad equity-market benchmark and Bitcoin buy-and-hold. Exact benchmark instruments and data sources will be selected before launch.
 
-Trading resumes only from information actually available after the system resumes.
+Benchmarks are observational only and never interact with the AI's £100 portfolio.
 
-## 30. Audit Trail and No Cherry-Picking
+## 32. Automated Scoring
 
-The repository is intended to provide a public audit trail of the experiment.
+Wherever practical, final performance and portfolio accounting are calculated mechanically from the immutable ledger rather than allowing the AI to manually determine its own score.
 
-Successful trades, unsuccessful trades, HOLD decisions, missed opportunities, system failures, corrections, agent disagreements and other material events should remain visible.
+## 33. No Hidden Rule Changes After Launch
 
-Results must not be cherry-picked.
-
-## 31. Experiment Integrity / Invalid Run
-
-Severe failures such as corrupted or missing decision records, materially unreliable timestamps, accidental use of future information, unrecoverable portfolio-accounting errors, or other violations capable of invalidating the forward-test must be disclosed.
-
-Such a failure must not be quietly ignored merely to preserve a favourable result.
-
-The run may be labelled compromised or invalid where necessary, with the reason and timestamp preserved.
-
-## 32. Benchmarks
-
-For context, passive benchmark portfolios should begin from the same official experiment timestamp and equivalent £100 starting value.
-
-The planned benchmarks are:
-
-- a broad equity-market benchmark
-- Bitcoin buy-and-hold
-
-Benchmarks do not affect the AI's capital and cannot be traded by the AI. They exist solely to evaluate whether the active AI system added value relative to simple alternatives.
-
-Exact benchmark instruments and price sources must be selected before launch.
-
-## 33. No Rule Changes Hidden After Launch
-
-Once this document is frozen and the experiment begins, historical rules cannot be rewritten to favour the observed outcome.
-
-Any permitted clarification or unavoidable operational amendment must be appended with a full timestamp and explanation.
-
-A material change to the experiment's fundamental rules should result in a separately identified experiment version rather than pretending the original conditions never changed.
+Once frozen and launched, historical rules cannot be rewritten to favour observed results. Any unavoidable clarification/amendment is appended with a Europe/London timestamp and explanation. A material change becomes a separately identified experiment version rather than pretending the original conditions never changed.
 
 ## 34. Pre-Launch Requirement
 
-The experiment must not begin until the core infrastructure has been tested sufficiently to support a credible forward test.
-
-At minimum this includes:
+The experiment cannot begin until the core infrastructure has been tested sufficiently for a credible forward test, including:
 
 - live market monitoring
 - timestamped event recording
-- a reliable AI triggering mechanism
-- AI decision logging
+- reliable AI triggering
+- AI decision and rationale logging
 - simulated execution
 - portfolio accounting
+- unique order/trade IDs and duplicate protection
 - agent identification
-- failure/outage logging
+- risk monitoring
+- outage/failure logging
+- trustworthy London-time timestamping
 
-Once these are working, this rules document can be reviewed one final time, frozen, the £100.00 opening balance recorded, and the official 30-day start timestamp created.
+Only after these pass testing will this ruleset be frozen, the £100.00 opening balance recorded and the official 30-day start timestamp created.
 
 ---
 
 ## Pre-Launch Change History
 
-**2026-09-14 19:50 BST — Rules consolidated.**  
-The previously discussed £10 starting-capital concept was superseded before launch by a £100.00 starting portfolio. The objective was also clarified from reaching a particular target to maximising final portfolio value over exactly 30 days. Currency/FX trading was explicitly permitted, gambling was explicitly prohibited, and the no-undo / append-only correction principle was formalised.
+**2026-09-14 19:50 BST — Initial consolidated rules.**  
+The earlier £10 concept was superseded before launch by £100.00. The objective became maximising final portfolio value over exactly 30 days. FX was permitted, gambling prohibited and the no-undo/append-only correction principle formalised.
+
+**2026-09-14 19:55 BST — Expanded rules approved.**  
+All additional rules reviewed in the pre-launch discussion were approved. The capital constraint was strengthened to prohibit borrowing money or assets, leverage and conventional short selling. Options, futures, CFDs and other leveraged/borrowed instruments were prohibited. Trade rationale records, stop-loss/trailing-stop protections, evidence-based re-entry rules, fail-closed market data, unique order IDs, automated accounting safeguards, maximum-drawdown reporting and Git audit integrity were added. **Europe/London was designated as the authoritative experiment timezone, automatically using GMT/BST as applicable.**
