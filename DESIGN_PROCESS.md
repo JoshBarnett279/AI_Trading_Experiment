@@ -1,5 +1,27 @@
 # AI Trading Experiment — Design Process
 
+**Document created:** 2026-09-14 (UK time)
+
+## Documentation Timestamp Standard
+
+**Added: 2026-09-14 19:37:42 BST**
+
+From this point onward, every addition, change, experiment entry, design decision, trade decision, program-generated event, and other meaningful record should include a timestamp.
+
+Standard format:
+
+```text
+YYYY-MM-DD HH:MM:SS TZ
+```
+
+Example:
+
+```text
+2026-09-14 19:37:42 BST
+```
+
+The full date must be recorded so that entries remain unambiguous when development or trading crosses into a new day. Automated components should generate timestamps themselves rather than relying on manually entered times wherever possible. Trading-related records should additionally preserve the relevant event, detection, receipt, decision, and execution timestamps described below.
+
 ## Purpose
 
 This document records how the AI Trading Experiment is designed, tested, and refined before the official 30-day forward-test begins.
