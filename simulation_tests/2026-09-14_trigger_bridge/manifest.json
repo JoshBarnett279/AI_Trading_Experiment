@@ -1,0 +1,106 @@
+{
+  "archived_london": "2026-09-14 20:52:57 BST",
+  "archived_iso": "2026-09-14T20:52:57+01:00",
+  "timezone": "Europe/London",
+  "status": "PRE_LAUNCH_TEST_ONLY",
+  "desktop_delivery_tested": false,
+  "live_snapshots": {
+    "market_observations.jsonl": {
+      "records": 89,
+      "incomplete_trailing_bytes_excluded": 0,
+      "first_record": {
+        "record_type": "PRICE_OBSERVATION",
+        "market_id": "BTC-GBP",
+        "product": "BTC-GBP",
+        "source": "Coinbase public spot endpoint",
+        "watcher_detected_london": "2026-09-14 20:30:33 BST",
+        "watcher_detected_iso": "2026-09-14T20:30:33+01:00",
+        "observed_london": "2026-09-14 20:30:34 BST",
+        "observed_iso": "2026-09-14T20:30:34+01:00",
+        "price": 58599.075,
+        "currency": "GBP",
+        "test_mode": true
+      },
+      "last_record": {
+        "record_type": "PRICE_OBSERVATION",
+        "market_id": "BTC-GBP",
+        "product": "BTC-GBP",
+        "source": "Coinbase public spot endpoint",
+        "watcher_detected_london": "2026-09-14 20:52:49 BST",
+        "watcher_detected_iso": "2026-09-14T20:52:49+01:00",
+        "observed_london": "2026-09-14 20:52:49 BST",
+        "observed_iso": "2026-09-14T20:52:49+01:00",
+        "price": 58569.36,
+        "currency": "GBP",
+        "test_mode": true
+      }
+    }
+  },
+  "files": [
+    {
+      "path": "simulation_reviews/2026-09-14_trigger_bridge/REVIEW.md",
+      "bytes": 3819,
+      "sha256": "aaefaa3bce993b9163414da7f714d7914dd8053d1c98001e29570531f943e734"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/live_watcher_snapshot/market_observations.jsonl",
+      "bytes": 32173,
+      "sha256": "c009271b2522d3fbf39701c468d09c6dc937ade047bf66a4d977d1c3ad948c3f"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/original_bridge/bridge.py",
+      "bytes": 2815,
+      "sha256": "827fdd492ffbf118f186c3443b34b97f956fb596b2a0a360ecd207d072f07644"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/original_bridge/probe_watcher.py",
+      "bytes": 2156,
+      "sha256": "c8f77e316bb397d668cfaa3f06ea97a23c47b5c5851bbe1c56332f32229c3261"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/original_bridge/README.md",
+      "bytes": 2019,
+      "sha256": "17c881cffc2a428bf70b3520c960565dc1b5fedba3ba4d8cd5fddfc98ba5991c"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/original_bridge/test_bridge.py",
+      "bytes": 2052,
+      "sha256": "37b2f287decf5ce4dbf38a5449b83b3e9f497a3e51dce5153f19c60c29ddfc15"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/original_bridge/test_evidence/20260914-204814-969831/outbox.jsonl",
+      "bytes": 996,
+      "sha256": "1c01efc2e52986f43c8b60e3f4de753ac876b3797c426d87a8020d40a703e04d"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/original_bridge/test_evidence/20260914-204814-969831/synthetic_market_events.jsonl",
+      "bytes": 649,
+      "sha256": "77567a421324b25bf8565491831e635ef04cefae682f2020e276e6dbb18974da"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/original_bridge/test_evidence/20260914-204814-969831/synthetic_observations.jsonl",
+      "bytes": 720,
+      "sha256": "f278b9487be03804a764ff7a1650532b2e8db3c86ba8adbed28c3d3d96907cb6"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/original_bridge/test_evidence/audit.jsonl",
+      "bytes": 536,
+      "sha256": "ae6db74cc4561185e58b7ae4d46af158bde872a70156a2cca624e49efd7844c4"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/README.md",
+      "bytes": 2805,
+      "sha256": "aa3cc74002f80bce5ee4e6edb96cc7b83faf8afd8261ef1cda2c6ae600f78631"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/watcher_snapshot/config/watcher_config.json",
+      "bytes": 419,
+      "sha256": "8001320cffae280233d20c79ec81ca48fba5bc6f85b68f33fcbc003af05c7c78"
+    },
+    {
+      "path": "simulation_tests/2026-09-14_trigger_bridge/watcher_snapshot/watcher/market_watcher.py",
+      "bytes": 8129,
+      "sha256": "82df794384ac352fca0c081d227a4daafd6b5755b9d7f258409a0c682e2d455b"
+    }
+  ]
+}
