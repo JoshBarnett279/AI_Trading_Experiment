@@ -98,3 +98,11 @@ Automatic submission and duplicate blocking passed on 15 September 2026.
 See simulation_tests/2026-09-15_chatgpt_bridge/ for the actual audit and results.
 This supersedes the earlier pending isolated-test status above. Watcher
 integration remains disconnected and the experiment remains PRE-LAUNCH.
+
+
+## Controlled integration update — 2026-09-15 22:36:14 BST
+
+Controlled synthetic file -> follower -> real ChatGPT delivery and duplicate
+blocking passed. The initial Show more confirmation timeout and its fix are
+preserved in simulation_tests/2026-09-15_controlled_connector/. 22 offline
+tests pass. Natural market-event delivery remains untested; PRE-LAUNCH remains.

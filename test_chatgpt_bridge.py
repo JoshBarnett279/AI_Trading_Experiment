@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from datetime import datetime
-from chatgpt_bridge import Browser, Ledger, exclusive_browser, stamp, submit, target_key, validate
+from chatgpt_bridge import Browser, Ledger, exclusive_browser, message_matches, stamp, submit, target_key, validate
 from unittest.mock import MagicMock
 
 URL = "https://chatgpt.com/c/test-conversation"
@@ -102,6 +102,22 @@ class Tests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             browser.prepare(URL)
         box.send_keys.assert_not_called()
+    def test_expandable_message_controls_ignored(self):
+        item = MagicMock()
+        item.text = 'exact message\nShow more'
+        body = MagicMock()
+        body.get_attribute.return_value = 'exact message'
+        item.find_elements.return_value = [body]
+        self.assertTrue(message_matches(item, 'exact message'))
+        self.assertFalse(message_matches(item, 'exact'))
+        item.is_displayed.return_value = False
+        self.assertFalse(message_matches(item, 'exact message'))
+    def test_plain_message_exact_match(self):
+        item = MagicMock()
+        item.text = 'exact message'
+        item.find_elements.return_value = []
+        self.assertTrue(message_matches(item, 'exact message'))
+        self.assertFalse(message_matches(item, 'exact'))
 
 
 if __name__ == '__main__':

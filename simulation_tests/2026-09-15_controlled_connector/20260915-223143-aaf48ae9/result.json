@@ -1,0 +1,20 @@
+{
+  "timestamp_london": "2026-09-15 22:32:23 BST",
+  "timestamp_iso": "2026-09-15T22:32:23.470902+01:00",
+  "timezone": "Europe/London",
+  "phase": "PRE-LAUNCH",
+  "result": "FAILED",
+  "event_id": "SYNTHETIC-CONNECTOR-897a34383be94c95bbf6b3f57afc03f7",
+  "source_event_file": "C:\\Users\\LocalAdmin\\OneDrive\\Documents\\GitHub\\AI_Trading_Experiment\\simulation_tests\\2026-09-15_controlled_connector\\20260915-223143-aaf48ae9\\synthetic_events.jsonl",
+  "synthetic": true,
+  "source_code_config_rules_preserved": true,
+  "before_sha256": {
+    "watcher/market_watcher.py": "82df794384ac352fca0c081d227a4daafd6b5755b9d7f258409a0c682e2d455b",
+    "config/watcher_config.json": "8001320cffae280233d20c79ec81ca48fba5bc6f85b68f33fcbc003af05c7c78",
+    "RULES.md": "4d9ce65ca6442f13bc2898ea116e3a3d068b83c6e316589332fe42c7f16f0064"
+  },
+  "natural_market_delivery_tested": false,
+  "clock_started": false,
+  "rules_frozen": false,
+  "trades_executed": false
+}

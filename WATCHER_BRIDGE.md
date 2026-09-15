@@ -76,3 +76,11 @@ This new watcher-to-browser route awaits a naturally generated event test.
 
 Run tests with `python -B -m unittest discover -p "test*bridge.py" -v`.
 No trades, rule freeze, official opening balance or 30-day start are performed.
+
+
+## Controlled integration update — 2026-09-15 22:36:14 BST
+
+Controlled synthetic file -> follower -> real ChatGPT delivery and duplicate
+blocking passed. The initial Show more confirmation timeout and its fix are
+preserved in simulation_tests/2026-09-15_controlled_connector/. 22 offline
+tests pass. Natural market-event delivery remains untested; PRE-LAUNCH remains.

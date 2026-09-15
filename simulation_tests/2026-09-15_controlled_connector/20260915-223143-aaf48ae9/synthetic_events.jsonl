@@ -1,0 +1,1 @@
+{"record_type": "MARKET_EVENT", "event_id": "SYNTHETIC-CONNECTOR-897a34383be94c95bbf6b3f57afc03f7", "product": "BTC-GBP", "test_mode": true, "synthetic": true, "watcher_detected_iso": "2026-09-15T22:31:48.642695+01:00", "source": "Controlled synthetic connector test; no market detection", "reason": "PRE-LAUNCH synthetic delivery test. Acknowledge only; no trading action."}

@@ -79,6 +79,16 @@ class Ledger:
         return True
 
 
+def message_matches(item, message):
+    """Compare message content, excluding ChatGPT's expandable-message controls."""
+    if not item.is_displayed():
+        return False
+    contents = item.find_elements('css selector', '[data-testid="collapsible-user-message-content"]')
+    if contents:
+        return len(contents) == 1 and (contents[0].get_attribute('textContent') or '').strip() == message
+    return item.text.strip() == message
+
+
 class Browser:
     def __init__(self):
         from selenium import webdriver
@@ -145,7 +155,7 @@ class Browser:
         self.box.send_keys(Keys.ENTER)
         def visible_submission(driver):
             self.assert_target()
-            return any(item.is_displayed() and item.text.strip() == message
+            return any(message_matches(item, message)
                        for item in driver.find_elements(By.CSS_SELECTOR, '[data-message-author-role="user"]'))
         WebDriverWait(self.driver, 30).until(visible_submission)
 
