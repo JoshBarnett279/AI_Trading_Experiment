@@ -138,6 +138,16 @@ AI DECISION
 SIMULATED EXECUTION
 ```
 
+Example:
+
+```text
+EVENT OCCURRED:      18:32:14
+WATCHER DETECTED:     18:32:16
+AI RECEIVED:          18:32:21
+AI DECISION:          18:32:29
+SIMULATED EXECUTION:  18:32:30
+```
+
 The earliest valid simulated trade price is after the AI has actually received and processed the event.
 
 ## Planned Audit Rules
@@ -153,6 +163,29 @@ The experiment is intended to follow these principles:
 - public news, market data, technical analysis, fundamentals, sentiment, and publicly disclosed trades may be considered
 - the human may stop the experiment, but should not intervene to rescue a losing position
 - rule changes after launch should create a new experiment version rather than silently changing the live rules
+
+## Proposed Repository Structure
+
+```text
+AI_Trading_Experiment/
+├── watcher/
+│   ├── market_watcher.py
+│   └── news_watcher.py
+├── data/
+│   └── market_events.jsonl
+├── portfolio/
+│   ├── ledger.csv
+│   └── positions.json
+├── decisions/
+│   └── decisions.jsonl
+├── config/
+│   └── strategy.json
+├── DESIGN_PROCESS.md
+├── RULES.md
+└── README.md
+```
+
+This structure is provisional and can be refined before launch.
 
 ## Development Plan
 
@@ -179,7 +212,20 @@ The next technical milestone is to test whether a local program can reliably inv
 
 ## Portfolio / Career Value
 
-This project can demonstrate practical experience with event-driven software design, API/live-data integration, automation, Python, Git/GitHub, audit logging, systems thinking, latency/failure handling, AI-agent integration and quantitative experiment design.
+This project can demonstrate practical experience with:
+
+- event-driven software design
+- API and live-data integration
+- automation
+- Python development
+- Git/GitHub version control
+- audit logging and reproducibility
+- systems thinking
+- handling latency and failure states
+- AI-agent integration
+- quantitative experiment design
+
+The experiment result itself is less important than the quality, transparency, and technical rigor of the system used to run it.
 
 ---
 
