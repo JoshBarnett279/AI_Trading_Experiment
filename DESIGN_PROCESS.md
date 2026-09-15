@@ -138,16 +138,6 @@ AI DECISION
 SIMULATED EXECUTION
 ```
 
-Example:
-
-```text
-EVENT OCCURRED:      18:32:14
-WATCHER DETECTED:     18:32:16
-AI RECEIVED:          18:32:21
-AI DECISION:          18:32:29
-SIMULATED EXECUTION:  18:32:30
-```
-
 The earliest valid simulated trade price is after the AI has actually received and processed the event.
 
 ## Planned Audit Rules
@@ -163,29 +153,6 @@ The experiment is intended to follow these principles:
 - public news, market data, technical analysis, fundamentals, sentiment, and publicly disclosed trades may be considered
 - the human may stop the experiment, but should not intervene to rescue a losing position
 - rule changes after launch should create a new experiment version rather than silently changing the live rules
-
-## Proposed Repository Structure
-
-```text
-AI_Trading_Experiment/
-├── watcher/
-│   ├── market_watcher.py
-│   └── news_watcher.py
-├── data/
-│   └── market_events.jsonl
-├── portfolio/
-│   ├── ledger.csv
-│   └── positions.json
-├── decisions/
-│   └── decisions.jsonl
-├── config/
-│   └── strategy.json
-├── DESIGN_PROCESS.md
-├── RULES.md
-└── README.md
-```
-
-This structure is provisional and can be refined before launch.
 
 ## Development Plan
 
@@ -212,21 +179,106 @@ The next technical milestone is to test whether a local program can reliably inv
 
 ## Portfolio / Career Value
 
-This project can demonstrate practical experience with:
-
-- event-driven software design
-- API and live-data integration
-- automation
-- Python development
-- Git/GitHub version control
-- audit logging and reproducibility
-- systems thinking
-- handling latency and failure states
-- AI-agent integration
-- quantitative experiment design
-
-The experiment result itself is less important than the quality, transparency, and technical rigor of the system used to run it.
+This project can demonstrate practical experience with event-driven software design, API/live-data integration, automation, Python, Git/GitHub, audit logging, systems thinking, latency/failure handling, AI-agent integration and quantitative experiment design.
 
 ---
 
 This file should be updated throughout development so that design decisions, failures, changes, and reasoning remain visible in the repository history.
+
+## 2026-09-15 PRE-LAUNCH design catch-up
+
+**Added: 2026-09-15 05:29:22 BST**
+
+This section is additive and preserves the earlier design record above. Where the original concept above says £10/£20, that is historical design context only. `RULES.md` later superseded it before launch with exactly **£100.00 simulated capital**, GBP reporting/base currency, and a 30-day objective. The rules remain PRE-LAUNCH / NOT YET FROZEN and the official clock remains **NOT STARTED**.
+
+### Status vocabulary
+
+- **IMPLEMENTED**: code/documentation exists in the repository.
+- **TESTED**: observed in a recorded pre-launch test; this does not imply production readiness.
+- **PLANNED**: agreed design direction, not yet demonstrated end-to-end.
+- **UNCONFIRMED**: evidence is insufficient to state a cause or capability.
+
+### Watcher progress
+
+**Recorded: 2026-09-15 05:29:22 BST**
+
+- **IMPLEMENTED + TESTED:** Windows watcher collected real Coinbase `BTC-GBP` spot observations and timestamped them in `Europe/London`.
+- **IMPLEMENTED + TESTED:** polling interval is 15 seconds and the watcher calculates movement against a rolling 300-second (5-minute) lookback.
+- **IMPLEMENTED, TEST ONLY:** the current trigger is ±0.5% over 5 minutes. It is an engineering threshold, not a frozen trading rule. Before launch it should be replaced/tuned using smarter multi-window filtering, potentially including volatility, volume, news significance and portfolio context.
+- **TESTED:** an isolated synthetic bridge test generated a watcher event and converted it to a deduplicated local message queue. Automatic ChatGPT receipt/delivery remains unproven.
+
+### Windows timezone dependency
+
+**Recorded: 2026-09-15 05:29:22 BST**
+
+During Windows testing, `zoneinfo` could not obtain the IANA timezone database. Installing the Python `tzdata` package resolved the issue:
+
+```text
+python -m pip install tzdata
+```
+
+`tzdata` is therefore an explicit runtime dependency for portable Windows use even though some operating systems provide timezone data themselves.
+
+### Unexpected watcher/CMD closure
+
+**Recorded: 2026-09-15 05:29:22 BST**
+
+**UNCONFIRMED:** during testing the watcher/CMD window unexpectedly closed. Windows Event Viewer showed no relevant Application crash. A separate Ctrl+C test stopped Python but did **not** close CMD. Accidental manual closure is possible, but there is not enough evidence to identify the cause and no cause should be invented.
+
+**PLANNED launch requirement:** persistent error/crash logging plus automatic recovery/restart must exist and be failure-tested before launch.
+
+### AI/token-efficiency architecture
+
+**Decision recorded: 2026-09-15 05:29:22 BST**
+
+**PLANNED:** routine monitoring, timestamping, logging, threshold calculations and filtering happen locally without AI usage. Events are filtered and deduplicated before any AI invocation. The local system sends compact event packets containing only the decision-relevant context. AI is reserved for meaningful analysis and discretionary BUY/SELL/HOLD decisions. If AI access is unavailable, the system fails safely and records the condition; it must not attempt to circumvent product/API usage limits.
+
+### Simulated portfolio and execution engine
+
+**Decision recorded: 2026-09-15 05:29:22 BST**
+
+**PLANNED:** build and dry-run a mechanical simulator using exactly **£100.00 PRE-LAUNCH test cash** with GBP as base/reporting currency. It will support BUY, SELL and HOLD; unique order IDs; append-only immutable decision/order/execution records; realistic obtainable prices after decisions; configurable spread, fees and slippage; no borrowing, leverage or shorting; mechanical rejection/logging of impossible orders; and deterministic portfolio accounting. The £100 pre-launch test balance is test state only and is not the official opening balance/start event.
+
+### Persistent prospective orders and offline reconciliation
+
+**Decision recorded: 2026-09-15 05:29:22 BST**
+
+**PLANNED:** stop-loss and take-profit/limit orders that were genuinely established prospectively may remain active while the PC is off. No retrospective AI decision may be inserted into downtime. On restart, trustworthy historical data will be used to determine whether a pre-existing order actually triggered, then simulate a realistic fill. Records must keep the historical market event/execution timestamp separate from the later reconciliation timestamp.
+
+### PREPARE FOR SHUTDOWN / RESUME EXPERIMENT
+
+**Decision recorded: 2026-09-15 05:29:22 BST**
+
+**PLANNED:** `PREPARE FOR SHUTDOWN` will refresh data, allow an AI review of current positions, establish any appropriate prospective orders, validate and persist state, and only then confirm `SAFE TO SHUT DOWN`. `RESUME EXPERIMENT` will reconcile downtime, process only orders that genuinely existed before shutdown, update accounting, log the downtime/reconciliation, and restart monitoring. Neither workflow permits hindsight.
+
+### Health watchdog and human intervention boundary
+
+**Decision recorded: 2026-09-15 05:29:22 BST**
+
+**PLANNED:** critical components will emit timestamped heartbeats. Stale heartbeats, not “no trades for an hour,” are the primary failure signal because legitimate inactivity/HOLD periods are possible. A stale heartbeat creates a technical-intervention alert and audit record. Human intervention may repair infrastructure but may not make, cancel or modify trading decisions.
+
+### Phone failure-notification test
+
+**Decision recorded: 2026-09-15 05:29:22 BST**
+
+**PLANNED / UNCONFIRMED capability:** deliberately simulate a watcher/heartbeat failure while the user is away from the conversation and determine whether the automated ChatGPT workflow produces the normal ChatGPT mobile push notification. Do not assume this works until demonstrated. If it is unreliable, a separate reliable phone-alert mechanism is required before launch.
+
+### Updated remaining development sequence
+
+**Roadmap updated: 2026-09-15 05:29:22 BST**
+
+1. Automatic event → ChatGPT triggering and receipt proof.
+2. Simulated £100 portfolio.
+3. Execution engine.
+4. Persistent prospective orders.
+5. Shutdown preparation workflow.
+6. Restart/downtime reconciliation.
+7. Health watchdog and phone-notification path.
+8. Failure testing, including persistent logging and automatic recovery.
+9. Final watcher/filter tuning, replacing the ±0.5%/5-minute TEST ONLY threshold as appropriate.
+10. Complete end-to-end dry run.
+11. Final rules review and freeze.
+12. Record the official £100.00 opening balance and official start timestamp.
+13. Begin the 30-day experiment.
+
+**Checkpoint: 2026-09-15 05:29:22 BST — PRE-LAUNCH. Official 30-day clock NOT STARTED.**

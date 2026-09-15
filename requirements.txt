@@ -1,0 +1,4 @@
+# Runtime dependency for reliable IANA Europe/London timezone data, especially on Windows.
+# Added: 2026-09-15 05:29:22 BST
+# PRE-LAUNCH dependency; does not start or freeze the experiment.
+tzdata
